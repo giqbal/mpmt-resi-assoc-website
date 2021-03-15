@@ -2,7 +2,7 @@ import StoryblokClient from 'storyblok-js-client'
 
 class StoryblokService {
   constructor() {
-    this.devMode = true // Always loads draft
+    this.devMode = process.env.VERCEL && process.env.VERCEL == 1 ? false : true  // Always loads draft
     this.token = process.env.PREVIEW_TOKEN
     this.client = new StoryblokClient({
       accessToken: this.token,
