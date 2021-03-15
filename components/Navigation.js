@@ -24,9 +24,9 @@ const Navigation = ({settings}) => {
       </div>
       <div className={`navbar-menu ${drawerState}`}>
         <div className="navbar-end">
-          {/* <a href="#aboutus" className="navbar-item">
+          <a href="#aboutus" className="navbar-item">
             About Us
-          </a> */}
+          </a>
           <a href="#contact" className="navbar-item">
             Contact
           </a>
