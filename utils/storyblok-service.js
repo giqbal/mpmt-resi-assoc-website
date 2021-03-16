@@ -23,7 +23,7 @@ class StoryblokService {
   get(slug, params) {
     params = params || {}
 
-    if (this.devMode) {
+    if (this.devMode || process.env.VERCEL_GIT_COMMIT_REF == 'preview') {
       params.version = 'draft'
     }
     params.version = 'published'
