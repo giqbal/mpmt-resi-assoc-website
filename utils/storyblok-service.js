@@ -2,7 +2,7 @@ import StoryblokClient from 'storyblok-js-client'
 
 class StoryblokService {
   constructor() {
-    this.devMode = process.env.VERCEL && process.env.VERCEL === 1 ? false : true
+    this.devMode = process.env.VERCEL ? false : true
     this.token = !this.devMode && process.env.VERCEL_GIT_COMMIT_REF === 'main' ? process.env.PUBLISH_TOKEN : process.env.PREVIEW_TOKEN
     this.client = new StoryblokClient({
       accessToken: this.token,
