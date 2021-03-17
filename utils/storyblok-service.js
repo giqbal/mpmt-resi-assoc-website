@@ -2,8 +2,8 @@ import StoryblokClient from 'storyblok-js-client'
 
 class StoryblokService {
   constructor() {
-    this.devMode = process.env.VERCEL ? false : true  // Always loads draft
-    this.token = process.env.VERCEL && process.env.VERCEL_GIT_COMMIT_REF === 'main' ? process.env.PUBLISH_TOKEN : process.env.PREVIEW_TOKEN
+    this.devMode = process.env.VERCEL && process.env.VERCEL === 1 ? false : true
+    this.token = !this.devMode && process.env.VERCEL_GIT_COMMIT_REF === 'main' ? process.env.PUBLISH_TOKEN : process.env.PREVIEW_TOKEN
     this.client = new StoryblokClient({
       accessToken: this.token,
       cache: {
@@ -23,7 +23,7 @@ class StoryblokService {
   get(slug, params) {
     params = params || {}
 
-    if (this.devMode || process.env.VERCEL_GIT_COMMIT_REF === 'preview') {
+    if (this.devMode || process.env.VERCEL_GIT_COMMIT_REF === 'preview' || this.getQuery('_storyblok')) {
       params.version = 'draft'
     } else {
       params.version = 'published'
