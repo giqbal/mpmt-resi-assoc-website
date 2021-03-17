@@ -5,7 +5,7 @@ import StoryblokService from '../utils/storyblok-service'
 
 const Layout = ({ children }) => (
   <div className="bg-gray-300">
-    <Head />
+    <Head title="Millennium Residents Association" description="Leaseholder association for Millennium Buildings" />
     <Navigation />
     {children}
     <Footer />
