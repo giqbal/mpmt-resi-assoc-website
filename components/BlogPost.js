@@ -23,7 +23,7 @@ const BlogPost = ({ blok }) => {
           </div>
         </div>
       </div>
-      <div className="container mb-6">
+      <div className="container px-5 mb-6">
         <div className="content">{render(blok.long_text)}</div>
       </div>
     </SbEditable>
