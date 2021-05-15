@@ -1,6 +1,8 @@
 import React from "react";
 import Image from "next/image";
 import Layout from "../../components/Layout";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faImage } from "@fortawesome/free-solid-svg-icons";
 import StoryblokService from "../../utils/storyblok-service";
 import { DateTime } from "luxon";
 
@@ -30,7 +32,6 @@ export default class extends React.Component {
 
   render() {
     const posts = this.state.stories;
-    console.log(posts[0].content.image);
 
     return (
       <Layout>
@@ -45,15 +46,19 @@ export default class extends React.Component {
           ) : (
             <ul className="container mt-6">
               {posts.map((post) => (
-                <li key={post.uuid} className="columns is-gapless">
+                <li key={post.uuid} className="columns">
                   <div className="column is-one-fifth">
-                    <figure className="image is-128x128">
-                      <Image
-                        src={post.content.image.filename}
-                        layout="responsive"
-                        width={128}
-                        height={128}
-                      />
+                    <figure className="image is-128by128">
+                      {post.content.image ? (
+                        <Image
+                          src={post.content.image.filename}
+                          layout="responsive"
+                          width={128}
+                          height={128}
+                        />
+                      ) : (
+                        <FontAwesomeIcon size="8x" icon={faImage} />
+                      )}
                     </figure>
                   </div>
                   <div className="column">
@@ -68,7 +73,7 @@ export default class extends React.Component {
                       </p>
                       <p className="subtitle is-5 mt-5">{post.content.intro}</p>
                     </div>
-                    <div className="mt-3">
+                    <div className="my-4">
                       <a href={`/${post.full_slug}`}>Read more</a>
                     </div>
                   </div>

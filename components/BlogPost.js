@@ -1,26 +1,33 @@
-import React from "react"
-import SbEditable from "storyblok-react"
-import { render } from "storyblok-rich-text-react-renderer"
+import React from "react";
+import Image from "next/image";
+import SbEditable from "storyblok-react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faQuoteLeft, faQuoteRight } from "@fortawesome/free-solid-svg-icons";
+import { render } from "storyblok-rich-text-react-renderer";
 
 const BlogPost = ({ blok }) => {
   return (
     <SbEditable content={blok} key={blok._uid}>
-      <div className="bg-white-half w-full">
-        <div className="max-w-3xl mx-auto text-center pt-20 flex flex-col items-center">
-          <h1 className="text-5xl font-bold font-serif text-primary tracking-wide">
+      <div className="section is-medium">
+        <div className="container">
+          <h1 className="title is-1 has-text-centered is-spaced">
             {blok.title}
           </h1>
-          <p className="text-gray-500 text-lg max-w-lg">{blok.intro}</p>
-          <img className="w-full bg-gray-300 my-16" src={blok.image} />
+          <figure className="image is-2by1">
+            <Image layout="fill" src={blok.image.filename} />
+          </figure>
+          <div className="has-text-centered mt-6">
+            <FontAwesomeIcon className="mb-4" size="1x" icon={faQuoteLeft} />
+            <p className="subtitle is-3 is-inline mx-1">{blok.intro}</p>
+            <FontAwesomeIcon className="mb-4" size="1x" icon={faQuoteRight} />
+          </div>
         </div>
       </div>
-      <div className="max-w-3xl mx-auto text-center pt-20 flex flex-col items-center">
-        <div className="leading-relaxed text-xl text-left text-gray-800 drop-cap">
-          {render(blok.long_text)}
-        </div>
+      <div className="container mb-6">
+        <div className="content">{render(blok.long_text)}</div>
       </div>
     </SbEditable>
-  )
-}
+  );
+};
 
-export default BlogPost
+export default BlogPost;
