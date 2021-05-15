@@ -1,6 +1,8 @@
 import React from "react";
+import Image from "next/image";
 import Layout from "../../components/Layout";
 import StoryblokService from "../../utils/storyblok-service";
+import { DateTime } from "luxon";
 
 export default class extends React.Component {
   constructor(props) {
@@ -28,6 +30,7 @@ export default class extends React.Component {
 
   render() {
     const posts = this.state.stories;
+    console.log(posts[0].content.image);
 
     return (
       <Layout>
@@ -40,33 +43,34 @@ export default class extends React.Component {
               </p>
             </div>
           ) : (
-            <ul>
+            <ul className="container mt-6">
               {posts.map((post) => (
-                <li className="max-w-4xl px-10 my-4 py-6 rounded-lg shadow-md bg-white">
-                  <div className="flex justify-between items-center">
-                    <span className="font-light text-gray-600">
-                      {`
-                      ${new Date(post.created_at).getDay()}.
-                      ${new Date(post.created_at).getMonth()}.
-                      ${new Date(post.created_at).getFullYear()}`}
-                    </span>
+                <li key={post.uuid} className="columns is-gapless">
+                  <div className="column is-one-fifth">
+                    <figure className="image is-128x128">
+                      <Image
+                        src={post.content.image.filename}
+                        layout="responsive"
+                        width={128}
+                        height={128}
+                      />
+                    </figure>
                   </div>
-                  <div className="mt-2">
-                    <a
-                      className="text-2xl text-gray-700 font-bold hover:text-gray-600"
-                      href={`/${post.full_slug}`}
-                    >
-                      {post.content.title}
-                    </a>
-                    <p className="mt-2 text-gray-600">{post.content.intro}</p>
-                  </div>
-                  <div className="flex justify-between items-center mt-4">
-                    <a
-                      className="text-blue-600 hover:underline"
-                      href={`/${post.full_slug}`}
-                    >
-                      Read more
-                    </a>
+                  <div className="column">
+                    <div>
+                      <a className="title is-3" href={`/${post.full_slug}`}>
+                        {post.content.title}
+                      </a>
+                      <p className="is-size-7 mt-3">
+                        {DateTime.fromISO(post.created_at, {
+                          locale: "gb",
+                        }).toLocaleString()}
+                      </p>
+                      <p className="subtitle is-5 mt-5">{post.content.intro}</p>
+                    </div>
+                    <div className="mt-3">
+                      <a href={`/${post.full_slug}`}>Read more</a>
+                    </div>
                   </div>
                 </li>
               ))}
