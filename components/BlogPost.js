@@ -4,6 +4,7 @@ import SbEditable from "storyblok-react";
 import DpAndName from "./DpAndName";
 import { DateTime } from "luxon";
 import { render } from "storyblok-rich-text-react-renderer";
+import TwitterFeed from "./TwitterFeed";
 
 const BlogPost = ({ blok, createdAt }) => {
   return (
@@ -29,7 +30,21 @@ const BlogPost = ({ blok, createdAt }) => {
           </figure>
         </div>
         <div className="container px-5 my-6">
-          <div className="content">{render(blok.long_text)}</div>
+          <div className="content">
+            {render(blok.long_text, {
+              blokResolvers: {
+                ["twitter-feed"]: (props) => <TwitterFeed {...props} />,
+              },
+              defaultBlokResolver: (name, props) => (
+                <div>
+                  <code>Missing blok resolver for blok type "{name}".</code>
+                  <pre>
+                    <code>{JSON.stringify(props, undefined, 2)}</code>
+                  </pre>
+                </div>
+              ),
+            })}
+          </div>
         </div>
       </div>
     </SbEditable>
