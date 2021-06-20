@@ -1,9 +1,9 @@
-import React from 'react'
-import Image from 'next/image'
-import SbEditable from 'storyblok-react'
-import { render } from "storyblok-rich-text-react-renderer"
+import React from "react";
+import Image from "next/image";
+import SbEditable from "storyblok-react";
+import { render } from "storyblok-rich-text-react-renderer";
 
-const Teaser = ({blok}) => {
+const Teaser = ({ blok }) => {
   return (
     <SbEditable content={blok}>
       <section className="hero is-light is-fullheight">
@@ -14,7 +14,7 @@ const Teaser = ({blok}) => {
               <h3 className="">{render(blok.contact_us)}</h3>
             </div>
             <div className="column">
-              <Image 
+              <Image
                 src={blok.image.filename}
                 alt={blok.image.alt}
                 className="block"
@@ -26,7 +26,7 @@ const Teaser = ({blok}) => {
         </div>
       </section>
     </SbEditable>
-  )
-}
+  );
+};
 
-export default Teaser
+export default Teaser;

@@ -1,5 +1,5 @@
-import DynamicComponent from './DynamicComponent'
-import SbEditable from 'storyblok-react'
+import DynamicComponent from "./DynamicComponent";
+import SbEditable from "storyblok-react";
 
 const Page = ({ content }) => (
   <SbEditable content={content}>
@@ -9,6 +9,6 @@ const Page = ({ content }) => (
       ))}
     </main>
   </SbEditable>
-)
+);
 
-export default Page
+export default Page;
